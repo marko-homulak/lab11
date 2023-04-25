@@ -1,23 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace lab11
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
         }
-
-        Shape shape;
 
         private void Add_Quadrilateral_btn_Click(object sender, EventArgs e)
         {
@@ -49,6 +41,11 @@ namespace lab11
             add_Square.Show();
         }
 
+        private void Shapes_list_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = e.ListItem.ToString();
+        }
+
         private void Cancel_btn_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -72,6 +69,6 @@ namespace lab11
             {
                 Shapes_list.Items.Remove(Shapes_list.SelectedItems[0]);
             }
-        }
+        }             
     }
 }

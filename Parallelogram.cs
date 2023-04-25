@@ -8,18 +8,26 @@ namespace lab11
 {
     class Parallelogram : Quadrilateral
     {
-        public override string Name => "Parallelogram";
+        protected override string name => "Parallelogram";
 
-        public double Height { get; set; }
+        private double height;
 
-        public override double CalculateArea()
+        public Parallelogram() { }
+
+        public Parallelogram(double side1 ,double height) 
         {
-            return Side1 * Height;
+            this.side1 = side1;
+            this.height = height;
         }
 
-        public override string GetProperty()
+        protected override double CalculateArea()
         {
-            return $"{Name} (side: {Side1}, height: {Height}; area: {CalculateArea()})";
+            return side1 * height;
+        }
+
+        public override string ToString()
+        {
+            return $"{name} (side: {side1}, height: {height}; area: {CalculateArea()})";
         }
     }
 }

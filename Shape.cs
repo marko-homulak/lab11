@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace lab11
 {
-    class Shape
+    public abstract class Shape
     {
-        public virtual string Name => "Shape"; // назва класу за замовчуванням
+        protected virtual string name => "Shape";
 
-        public virtual double CalculateArea()
-        {
-            return 0.0; // за замовчуванням площа рівна нулю
-        }
+        public string Name { get { return name; } }
 
-        public virtual string GetProperty()
+        protected abstract double CalculateArea();
+
+        public override string ToString()
         {
-            return "";
+            return $"{name}";
         }
     }
 }

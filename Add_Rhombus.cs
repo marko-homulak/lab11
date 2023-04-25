@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace lab11
 {
     public partial class Add_Rhombus : Form
     {
+
         private Form1 form1;
+
         public Add_Rhombus(Form1 form1)
         {
             this.form1 = form1;
             InitializeComponent();
         }
-
-        Shape shape;
-
+        
         private void Cancel_btn_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -28,17 +21,50 @@ namespace lab11
 
         private void Get_Area_btn_Click(object sender, EventArgs e)
         {
-            shape = new Rhombus()
+            Shape shape;
+
+            try
+            {                
+                if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text))
+                {
+                    throw new Exception("Please fill in all fields.");
+                }
+                else
+                {
+                    double diagonal1, diagonal2;
+
+                    if (!double.TryParse(textBox1.Text, out diagonal1) || diagonal1 <= 0)
+                    {
+                        throw new ArgumentException("Diagonal1 must be a positive number.");
+                    }
+
+                    if (!double.TryParse(textBox2.Text, out diagonal2) || diagonal2 <= 0)
+                    {
+                        throw new ArgumentException("Diagonal2 must be a positive number.");
+                    }
+
+                    if (diagonal1 == diagonal2)
+                    {
+                        double side1 = diagonal1 / Math.Sqrt(2);
+
+                        shape = new Square(side1);
+                    }
+                    else
+                    {
+                        shape = new Rhombus(diagonal1, diagonal2);
+                    }
+                }
+                
+                form1.Shapes_list.Items.Add(shape);
+
+                MessageBox.Show("Shape: " + shape.Name + " successfully added");
+
+                this.Close();
+            }
+            catch (Exception ex)
             {
-                Diagonal1 = double.Parse(textBox1.Text),
-                Diagonal2 = double.Parse(textBox2.Text)
-            };
-
-            form1.Shapes_list.Items.Add(shape.GetProperty());
-
-            MessageBox.Show("Area of the " + shape.Name + " = " + shape.CalculateArea());
-
-            this.Close();
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
